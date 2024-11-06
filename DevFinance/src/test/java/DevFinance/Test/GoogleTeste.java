@@ -54,6 +54,18 @@ public class GoogleTeste {
         // Clica no link "Overview"
         WebElement linkOverview = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='https://www.endava.com/who-we-are' and text()='Overview']")));
         linkOverview.click(); 
+
+
+
+
+
+
+        rolarPaginaLentamente(20, 80);
+
+        fechar();
+
+
+        
     }
 
     public void explorarSiteEndava() {
@@ -64,6 +76,8 @@ public class GoogleTeste {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", aceitarCookiesButton);
     }
 
+
+
     @AfterEach
     public void fechar() {
         if (driver != null) {
@@ -73,13 +87,30 @@ public class GoogleTeste {
 
 
 
-
-
-
-
-
-
-
-
+    public void rolarPaginaLentamente(int pixelsPorRolagem, int intervaloEmMilissegundos) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        long alturaPagina = (long) js.executeScript("return document.body.scrollHeight");
     
+        for (int posicaoAtual = 0; posicaoAtual < alturaPagina; posicaoAtual += pixelsPorRolagem) {
+            js.executeScript("window.scrollBy(0, arguments[0]);", pixelsPorRolagem);
+    
+            // Pausa para tornar a rolagem lenta
+            try {
+                Thread.sleep(intervaloEmMilissegundos);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+
+
+
+
+
+
+
+
+
+
 }
